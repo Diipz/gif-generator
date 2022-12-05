@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<style>
+    body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        background: linear-gradient(to bottom, #00AAFF, #00ff6c);
+    }
+</style>
+
+<body>
+    <h1>GIF GENERATOR</h1>
+    <img src="#"><br>
+    <div class="wrapper">
+        <input type="text">
+        <button>Search</button>
+    </div>
+
+
+    <script>
+        const btn = document.querySelector("button");
+
+        btn.addEventListener("click", () => {
+            const input = document.querySelector("input");
+
+            const img = document.querySelector('img');
+            fetch("https://api.giphy.com/v1/gifs/translate?api_key=AFSeU8bFnJyz9ur3VPuI9eMwFJpYgjeY&s=" + `${input.value}`, { mode: "cors" })
+                .then(function (response) {
+                    return response.json();
+                })
+                .then(function (response) {
+                    img.src = response.data.images.original.url;
+                })
+                .catch(function (error) {
+                    alert("no GIFS");
+                });
+        })
+
+        function search() {
+            const img = document.querySelector('img');
+            fetch("https://api.giphy.com/v1/gifs/translate?api_key=AFSeU8bFnJyz9ur3VPuI9eMwFJpYgjeY&s=cats", { mode: "cors" })
+                .then(function (response) {
+                    return response.json();
+                })
+                .then(function (response) {
+                    img.src = response.data.images.original.url;
+                });
+        }
+
+        search();
+
+    </script>
+</body>
+
+</html>
